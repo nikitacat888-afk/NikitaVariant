@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:efCrud.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="efCrud.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="efCrud">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<StackPanel Margin="20">
+		<StackPanel Spacing="10">
+			<TextBox Watermark="Name" Text="{Binding Name}" />
+			<TextBox Watermark="Age" Text="{Binding Age}"/>
+		</StackPanel>
+
+		<StackPanel Orientation="Horizontal" Spacing="10" Margin="0 10 0 10">
+			<Button Content="Добавить" Command="{Binding AddCommand}" />
+			<Button Content="Редактировать" Command="{Binding UpdateCommand}" />
+			<Button Content="Удалить" Command="{Binding DeleteCommand}" />
+			<Button Content="Очистить всё" Command="{Binding ClearAllCommand}" />
+		</StackPanel>
+
+		<ListBox ItemsSource="{Binding Users}"
+                 SelectedItem="{Binding SelectedUser}"
+                 DoubleTapped="OnUserDoubleTapped">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal" Spacing="10">
+						<TextBlock Text="{Binding Name}" />
+						<TextBlock Text="{Binding Age}" />
+						<TextBlock Text="{Binding Profile.Bio}" />
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</StackPanel>
+</Window>
